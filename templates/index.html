@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+<!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static 'img/hphome1.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Harry Potter Azərbaycan</h1>
+                        <hr class="small">
+                        <span class="subheading">Bu sayt Harry Potter və sehr dünyası həvəskarları üçündür.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1>Son Məqalələr</h1>
+                <hr>
+                <br>
+                {% if articles %}
+                
+                    {% for article in  articles %}
+                        <div class="post-preview">
+                            <a href="{% url 'articles:detail' article.id %}">
+                                <h2 class="post-title">
+                                    {{article.title}}
+                                </h2>
+                            </a>
+                            <p class="post-meta">Yazar: <a href="#">{{article.author}}   </a>{{article.created_date}}</p>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                
+                {% else %}
+                <div class="alert alert-danger">Heç bir məqalə yoxdur</div>
+                {% endif %}
+      
+                
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <a href="{% url 'articles:articles' %}">Başqa məqalələr &rarr;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+   
+
+{% endblock body %}

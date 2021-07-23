@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %} <!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('{% static 'img/314142.jpg' %}')">
+   <div class="container">
+       <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+               <div class="site-heading">
+                   <h1>İdarəetmə Paneli</h1>
+                   
+                   <span class="subheading">Siz burada məqalə əlavə edib, yeniləyib silə bilərsiniz.</span>
+               </div>
+           </div>
+       </div>
+   </div>
+</header>
+<!-- Main Content -->
+<div class="container">
+   <div class="row">
+       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <h3>İdarəetmə Panelinə xoş gəlmisiniz!</h3>
+        <hr>
+            <a href="{% url 'articles:addarticle' %}" class="btn btn-danger">Məqalə əlavə et</a>
+        {% if articles %}
+        
+        <h3>Məqalələriniz</h3>
+        <hr>
+          
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">İd</th>
+              <th scope="col">Başlıq</th>
+              <th scope="col">Yaradıldığı tarix</th>
+              <th scope="col">Yenilə</th>
+              <th scope="col">Sil</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for article in articles  %}
+              <tr>
+                  <th scope="row">{{article.id}}</th>
+                  <td><a href="{% url 'articles:detail' article.id %}">{{article.title}}</a></td>
+                  <td>{{article.created_date}}</td>
+                  <td><a href="{% url 'articles:update' article.id %}" class="btn btn-primary">Yenilə</a></td>
+                  <td><a href="{% url 'articles:delete' article.id %}" class="btn btn-danger">Sil</a></td>
+                </tr>
+              {% endfor %}
+            
+       
+          </tbody>
+        </table>
+         <hr>
+        {% else %}
+          <p>Sizin heç bir məqaləniz yoxdur</p>
+        {% endif %}
+        
+           
+       </div>
+   </div>
+</div>
+ 
+
+
+  
+{% endblock body %}

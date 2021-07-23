@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+ <!-- Set your background image for this header on the line below. -->
+ <header class="intro-header" style="background-image: url('{% static 'img/314231.png' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1></h1>
+                    
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content -->
+
+{% if articles %}
+<!--Search-->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+    <form >
+    {% csrf_token %}
+        <input type="text" name = "keyword" maxlength="64" placeholder="Axtar..">
+        <button type="submit" class="btn btn-danger">Axtar</button>
+     </form>
+    </div>
+</div>
+ </div>
+{% for article in articles  %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+<article>
+    
+        <header class="mb-4">
+            <!-- Post title-->
+            <h1 class="fw-bolder mb-1">{{article.title}}</h1>
+            <!-- Post meta content-->
+            <div class="text-muted fst-italic mb-2">Yazıçı: {{article.author}}</div>
+        </header>
+               <small>Yaradıldığı tarix: {{article.created_date}}</small>
+               <hr>
+               {% if article.image %}
+               
+               <img src="{{article.image.url}}" alt="">
+               {% endif %}
+               
+               <div>{{article.content|safe|truncatewords:100}}</div>
+
+             <a href="{% url 'articles:detail' article.id %}" style="float: right;" class="btn btn-danger">Davamını oxu</a>
+
+
+
+{% endfor %}
+
+
+{% else %}
+  <div class="alert alert-danger">Heç bir məqalə yoxdur.</div>
+</article>
+{% endif %}
+
+
+  
+</div>
+</div>
+</div>
+{% endblock body %}

@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% load  static %}
+{% block body %}
+<header class="intro-header" style="background-image: url('{% static 'img/hphome1.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+                           <h2>{{article.title}}</h2>
+               <p>Hazırlandı {{article.author}} tərəfindən</p>
+               <hr>
+               <small>Yaradıldığı tarix: {{article.created_date}}</small>
+               <hr>
+               {% if article.image %}
+               
+               <img src="{{article.image.url}}" alt="">
+               {% endif %}
+               
+               <h4>{{article.content|safe}}</h4>
+                <hr>
+            
+                <br>
+
+       
+                <br>
+        {% if comments %}
+        <h3 class="text-success">Rəylər</h3>
+        <hr>
+
+{% for comment in comments %}
+<div class="container">
+    <div class="col-md-8">
+          <div class="panel panel-default">
+              <div class="panel-body">
+                 <section class="post-heading">
+                      <div class="row">
+                          <div class="col-md-11">
+                              <div class="media">
+                                <div class="media-left">
+                                  <a href="#">
+                                    <img class="media-object photo-profile" src="https://e7.pngegg.com/pngimages/428/137/png-clipart-male-avatar-young-user-icon-icons-logos-emojis-users.png" width="40" height="40" alt="...">
+                                    
+                                </a>
+                                </div>
+                                <div class="media-body">
+                                  <a href="#" class="anchor-username"><h4 class="media-heading">{{comment.comment_author}}</h4></a> 
+                                  <a href="#" class="anchor-time">{{comment.comment_date}}</a>
+                                </div>
+                              </div>
+                          </div>
+                           
+                      </div>             
+                 </section>
+                 <section class="post-body">
+                     <p>{{comment.comment_content}}</p>
+                 </section>
+                 <section class="post-footer">
+    
+                     <div class="post-footer-option container">
+                          <ul class="list-unstyled">
+                              <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Bəyən</a></li>
+                          </ul>
+                     </div>
+                     <div class="post-footer-comment-wrapper">
+                         <div class="comment-form">
+                             
+                         </div>
+                         
+                 </section>
+              </div>
+          </div>   
+    </div>
+  </div>
+  <hr>
+ 
+{% endfor %}          
+
+
+        {% else %}
+                  <div class="alert alert-danger">Bu məqalə haqqında heç bir şərh yoxdur. İlki siz edə bilərsiniz :)</div>
+         {% endif %}
+                
+            <br>
+
+        <div class="card my-4">
+                <h3 class = "card-header">Rəy Bildir</h3>
+            <div class = "card-body">
+
+                    <form method="POST" action="{% url 'articles:comment' article.id %}" >
+                        {% csrf_token %}
+                        <form">
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Ad</label>
+                              <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="Adınızı daxil edin...">
+                            </div>
+                          </form>
+
+                        <div class = "form-group">
+                            <label for="formGroupExampleInput">Rəy</label>
+                            
+                            <textarea name="comment_content" class = "form-control" rows="3" placeholder="Rəyi daxil edin..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Əlavə et</button>
+                    </form>
+    
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+</article>
+
+
+{% endblock body %}

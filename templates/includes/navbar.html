@@ -1,0 +1,49 @@
+ <!-- Navigation -->
+ <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                Menyu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/">Harry Potter Azərbaycan</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Əsas Səhifə</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">Haqqımızda</a>
+                </li>
+                <li>
+                    <a href="{% url 'articles:articles' %}">Məqalələr</a>
+                </li>
+                
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'user:logout' %}">Çıxış</a>
+                    </li>
+
+                     <li>
+                        <a href="{% url 'articles:dashboard' %}">İdarəetmə Paneli</a>
+                     </li>
+                    {% else %}
+                    <li>
+                        <a href="/user/register">Qeydiyyat</a>
+                    </li>
+                    <li>
+                        <a href="/user/login">Giriş</a>
+                    </li>
+                    {% endif %}
+                    
+              
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
